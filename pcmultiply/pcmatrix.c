@@ -50,15 +50,35 @@ int main (int argc, char * argv[])
   //
   // Demonstration code to show the use of matrix routines
 
-  // ----------------------------------------------------------
+  // ------------------------------------------------------------
 
   printf("Producing %d %dx%d matrices.\n",LOOPS, ROW, COL);
   printf("Using a shared buffer of size=%d\n", MAX);
   printf("With %d producer and consumer thread(s).\n",numw);
   printf("\n");
 
-  pthread_t pr;
-  pthread_t co;
+  //pthread_t pr;
+  //pthread_t co;
+  pthread_t *prarray;
+  pthread_t *coarray;
+
+  prarray = malloc(sizeof(pthread_t)*numw);
+  coarray = malloc(sizeof(pthread_t)*numw);  
+
+  for (int i = 0; i < numw; i++) {
+    pthread_create(&prarray[i], NULL, prod_worker, LOOPS);
+    pthread_create(&coarray[i], NULL, cons_worker, LOOPS);
+    pthread_join(prarray[i], NULL);
+    pthread_join(coarray[i], NULL);
+  }
+
+    
+
+  //pthread_create(&pr, NULL, prod_worker, LOOPS);
+  //pthread_create(&co, NULL, cons_worker, LOOPS);
+
+  //pthread_join(pr, NULL);
+  //pthread_join(co, NULL);
 
   int prs = 0;
   int cos = 0;
