@@ -59,12 +59,16 @@ int main (int argc, char * argv[])
 
   //pthread_t pr;
   //pthread_t co;
+
+  //declare variables for an array of threads
   pthread_t *prarray;
   pthread_t *coarray;
 
+  //allocate memory based on size of thread * number of threads used
   prarray = malloc(sizeof(pthread_t)*numw);
   coarray = malloc(sizeof(pthread_t)*numw);  
 
+  //create and join producer and consumer threads based on the number specified in pcmatrix.h
   for (int i = 0; i < numw; i++) {
     pthread_create(&prarray[i], NULL, prod_worker, LOOPS);
     pthread_create(&coarray[i], NULL, cons_worker, LOOPS);
@@ -72,13 +76,6 @@ int main (int argc, char * argv[])
     pthread_join(coarray[i], NULL);
   }
 
-    
-
-  //pthread_create(&pr, NULL, prod_worker, LOOPS);
-  //pthread_create(&co, NULL, cons_worker, LOOPS);
-
-  //pthread_join(pr, NULL);
-  //pthread_join(co, NULL);
 
   int prs = 0;
   int cos = 0;
