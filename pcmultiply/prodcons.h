@@ -27,4 +27,16 @@ void *cons_worker(void *arg);
 void put(Matrix *value);
 Matrix * get();
 
+int totalSum();
 
+int multiplySum();
+
+int matrixProd();
+
+int matrixCons();
+
+int matrixSum();
+
+int elementProducedSum();
+
+int elementConsumedSum();

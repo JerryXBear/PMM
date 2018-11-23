@@ -83,6 +83,12 @@ int main (int argc, char * argv[])
   int constot = 0;
   int consmul = 0;
 
+  prs = elementProducedSum();
+  cos = elementConsumedSum();
+  prodtot = matrixProd();
+  constot = matrixCons();
+  consmul = multiplySum();
+
   // consume ProdConsStats from producer and consumer threads
   // add up total matrix stats in prs, cos, prodtot, constot, consmul 
 

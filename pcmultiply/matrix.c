@@ -1,7 +1,7 @@
 /*
  *  Matrix routines
  *  Supports generation of random R x C matrices
- *  And operations on them
+ *  And operations on them.
  * 
  *  University of Washington, Tacoma
  *  TCSS 422 - Operating Systems
@@ -101,6 +101,7 @@ Matrix * MatrixMultiply(Matrix * m1, Matrix * m2)
     return NULL;
   }
   printf("MULTIPLY (%d x %d) BY (%d x %d):\n",m1->rows,m1->cols,m2->rows,m2->cols);
+  
   Matrix * newmat = AllocMatrix(m1->rows, m2->cols);
   int ** nm = newmat->m;
   int ** ma1 = m1->m;
@@ -117,6 +118,10 @@ Matrix * MatrixMultiply(Matrix * m1, Matrix * m2)
       sum=0;
     }
   }
+  DisplayMatrix(m1, stdout);
+  printf("   x\n");
+  DisplayMatrix(m2, stdout);
+  printf("   =\n");
   return newmat;
 }
 

@@ -7,7 +7,7 @@
  *  average when the matrix is ready for processing.
  *
  *  Wes J. Lloyd
- *  University of Washington, Tacoma
+ *  University of Washington, Tacoma.
  *  TCSS 422 - Operating Systems
  *  Fall 2016
  */
@@ -20,6 +20,10 @@
 // SYNCHRONIZED COUNTER METHOD IMPLEMENTATION
 // Based on Three Easy Pieces
 
+int gsum = 0; 
+int gtotal() {
+ return gsum;
+}
 void init_cnt(counter_t *c)  {
   c->value = 0;
   pthread_mutex_init(&c->lock, NULL);
@@ -28,6 +32,7 @@ void init_cnt(counter_t *c)  {
 void increment_cnt(counter_t *c)  {
   pthread_mutex_lock(&c->lock);
   c->value++;
+  gsum++;
   pthread_mutex_unlock(&c->lock);
 }
 
