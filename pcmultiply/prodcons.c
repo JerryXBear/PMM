@@ -1,8 +1,8 @@
 /*
  *  prodcons module
  *  Producer Consumer module
- * 
- *  Implements routines for the producer consumer module based on 
+ *
+ *  Implements routines for the producer consumer module based on
  *  chapter 30, section 2 of Operating Systems: Three Easy Pieces
  *
  *  University of Washington, Tacoma
@@ -89,11 +89,11 @@ void put(Matrix * value)
   count++;
   matrixProduced++; // total produced matrixes
   matrixTotal++;
-	
+
 }
 
 //get matrix from the bounded buffer, decrease the count of matrices on buffer
-Matrix * get() 
+Matrix * get()
 {
   Matrix * tmp = bigmatrix[use_ptr];
   use_ptr = (use_ptr + 1) % MAX;
@@ -109,7 +109,7 @@ void *prod_worker(void *arg)
   int i = 0;
   //generate a random matrix and put on buffer if less than LOOPS
   while (i < LOOPS) {
-	
+
     pthread_mutex_lock(&mutex);
     //if the bounded buffer is full (MAX) then wait on for consumer
     while (count == MAX) {
@@ -117,6 +117,7 @@ void *prod_worker(void *arg)
     }
     Matrix *m = GenMatrixRandom();
     put(m);
+		elementsProduced +=  SumMatrix(m);
     i++;
     pthread_cond_signal(&fill);
     pthread_mutex_unlock(&mutex);
@@ -144,13 +145,15 @@ void *cons_worker(void *arg)
     if(gate == 0) {
       tmp1 = get();
       gate = 1;
-      
+			elementsConsumed += SumMatrix(tmp1);
+
     }
     //else it is the second matrix
     else {
       tmp2 = get();
       Matrix *ans = MatrixMultiply(tmp1, tmp2);
-      
+			elementsConsumed += SumMatrix(tmp2);
+
       //if the result of multiplying is NULL then get rid of m2 and run the loop again
       if(ans == NULL) {
         FreeMatrix(tmp2);
@@ -160,7 +163,8 @@ void *cons_worker(void *arg)
         //printf("Matrix number %d\n", metricscounter);
         //metricscounter++;
         DisplayMatrix(ans, stdout);
-	multiplyTotal++;
+        SumMatrix(ans);
+        multiplyTotal++;
         gate = 0;
         FreeMatrix(tmp1);
         FreeMatrix(tmp2);
@@ -174,4 +178,3 @@ void *cons_worker(void *arg)
   }
   return NULL;
 }
-

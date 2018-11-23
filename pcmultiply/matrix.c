@@ -2,7 +2,7 @@
  *  Matrix routines
  *  Supports generation of random R x C matrices
  *  And operations on them.
- * 
+ *
  *  University of Washington, Tacoma
  *  TCSS 422 - Operating Systems
  *  Fall 2016
@@ -23,7 +23,7 @@
 Matrix * AllocMatrix(int r, int c)
 {
   Matrix * mat;
-  mat = (Matrix *) malloc(sizeof(Matrix)); 
+  mat = (Matrix *) malloc(sizeof(Matrix));
   int ** a;
   int i;
   a = (int**) malloc(sizeof(int *) * r);
@@ -80,7 +80,7 @@ Matrix * GenMatrixRandom()
   int col = 1 + rand() % 4;
   Matrix * mat = AllocMatrix(row, col);
   GenMatrix(mat);
-  return mat; 
+  return mat;
 }
 
 Matrix * GenMatrixBySize(int row, int col)
@@ -88,7 +88,7 @@ Matrix * GenMatrixBySize(int row, int col)
   printf("Generate random matrix (RxC) = (%dx%d)\n",row,col);
   Matrix * mat = AllocMatrix(row, col);
   GenMatrix(mat);
-  return mat; 
+  return mat;
 }
 
 Matrix * MatrixMultiply(Matrix * m1, Matrix * m2)
@@ -101,7 +101,7 @@ Matrix * MatrixMultiply(Matrix * m1, Matrix * m2)
     return NULL;
   }
   printf("MULTIPLY (%d x %d) BY (%d x %d):\n",m1->rows,m1->cols,m2->rows,m2->cols);
-  
+
   Matrix * newmat = AllocMatrix(m1->rows, m2->cols);
   int ** nm = newmat->m;
   int ** ma1 = m1->m;
@@ -112,7 +112,7 @@ Matrix * MatrixMultiply(Matrix * m1, Matrix * m2)
     {
       for (int k=0;k<m2->rows;k++)
       {
-        sum = sum + ma1[c][k]*ma2[k][d]; 
+        sum = sum + ma1[c][k]*ma2[k][d];
       }
       nm[c][d] = sum;
       sum=0;
@@ -128,13 +128,13 @@ Matrix * MatrixMultiply(Matrix * m1, Matrix * m2)
 void DisplayMatrix(Matrix * mat, FILE *stream)
 {
   if ((mat == NULL) || (mat->m == NULL))
-  { 
+  {
     printf("DisplayMatrix: EMPTY matrix\n");
     return;
   }
   int ** matrix = mat->m;
   int height = mat->rows;
-  int width = mat->cols; 
+  int width = mat->cols;
   int y=0;
   int i, j;
   for (i=0; i<height; i++)
@@ -158,7 +158,7 @@ int AvgElement(Matrix * mat) // int ** matrix, const int height, const int width
 {
   int ** a = mat->m;
   int height = mat->rows;
-  int width = mat->cols; 
+  int width = mat->cols;
   int x=0;
   int y=0;
   int ele=0;
@@ -167,7 +167,7 @@ int AvgElement(Matrix * mat) // int ** matrix, const int height, const int width
     for (j=0; j<width; j++)
     {
       int *mm = a[i];
-      y=mm[j];  
+      y=mm[j];
       x=x+y;
       ele++;
 #if OUTPUT
@@ -175,7 +175,7 @@ int AvgElement(Matrix * mat) // int ** matrix, const int height, const int width
 #endif
     }
   printf("x=%d ele=%d\n",x, ele);
-  return x / ele; 
+  return x / ele;
 }
 
 int SumMatrix(Matrix * mat) {
@@ -186,7 +186,7 @@ int SumMatrix(Matrix * mat) {
    int j =0;
    int y =0;
    int total = 0;
-   for (i = 0; i < height; i++) 
+   for (i = 0; i < height; i++)
    {
       for (j = 0; j < width; j++)
       {
@@ -197,7 +197,3 @@ int SumMatrix(Matrix * mat) {
    }
    return total;
 }
-
-
-
- 
