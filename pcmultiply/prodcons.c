@@ -19,14 +19,7 @@
 #include "pcmatrix.h"
 #include "prodcons.h"
 
-/*
-prodcons myProdCons;
-
-myProdCons.sumtotal = 1;
-myProdCons.multtotal = 2;
-myProdCons.matrixtotal = 3:
-*/
-typedef struct prodcons *gStats;
+// variables to track the stats
 int sumTotal = 0;
 int multiplyTotal = 0;
 int matrixProduced = 0;
@@ -35,31 +28,22 @@ int matrixTotal = 0;
 int elementsProduced = 0;
 int elementsConsumed = 0;
 
-
-
-//ProdConsStats.sumtotal = 1;
-//ProdConsStats.multtotal = 2;
-//ProdConsStats.matrixtotal = 3;
-
+// Methods for the accessing stats
 int totalSum() {
 	return sumTotal;
 }
 int multiplySum() {
 	return multiplyTotal;
 }
-
 int matrixProd() {
 	return matrixProduced;
 }
-
 int matrixCons() {
 	return matrixConsumed;
 }
-
 int matrixSum() {
 	return matrixTotal;
 }
-
 int elementProducedSum() {
 	return elementsProduced;
 }
